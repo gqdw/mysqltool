@@ -14,12 +14,12 @@ class info:
 		self.table_name = table_name
 		self.engine = engine
 		self.table_rows = table_rows
-	def get_table_name( self ):
-		return  self.table_name
-	def get_engine( self ):
-		return self.engine
-	def get_table_rows( self ):
-		return self.table_rows
+#	def get_table_name( self ):
+#		return  self.table_name
+#	def get_engine( self ):
+#		return self.engine
+#	def get_table_rows( self ):
+#		return self.table_rows
 #	def get_table_name()
 #	def __getitem__(self,key): return self.[key]
 	def say(self):
@@ -65,12 +65,13 @@ def write_to_excel( sheet_name ):
 	ws = wb.add_sheet( sheet_name )	
 	j = 1
 	for i in  tables:
-		#ws.write( j, 1, i['table_name'] )
-		#ws.write( j, 2, i['engine'] )
-		#ws.write( j, 3, i['table_rows'] )
-		ws.write( j, 1, i.get_table_name() )
-		ws.write( j, 2, i.get_engine() )
-		ws.write( j, 3, i.get_table_rows() )
+		ws.write( j, 1, i.table_name )
+		ws.write( j, 2, i.engine )
+		ws.write( j, 3, i.table_rows )
+#		print i.table_name
+	#	ws.write( j, 1, i.get_table_name() )
+	#	ws.write( j, 2, i.get_engine() )
+	#	ws.write( j, 3, i.get_table_rows() )
 		j = j+1
 	wb.save(sheet_name +'.xls')
 
