@@ -6,12 +6,26 @@ dbpass = ''
 dbname = 'information_schema'
 tables= []
 class info:
+	#table_name = ''
+	#engine = ''
+	#table_rows = ''
+	
 	def __init__(self,table_name,engine,table_rows):
 		self.table_name = table_name
 		self.engine = engine
 		self.table_rows = table_rows
+	def get_table_name( self ):
+		return  self.table_name
+	def get_engine( self ):
+		return self.engine
+	def get_table_rows( self ):
+		return self.table_rows
+#	def get_table_name()
+#	def __getitem__(self,key): return self.[key]
 	def say(self):
 		print self.table_name,self.engine,self.table_rows
+	#def ret(self):
+	#	return 
 
 def get_mysql_info():
 	db1 = MySQLdb.connect('localhost',dbuser,dbpass,dbname,unix_socket='/tmp/mysql.sock')
@@ -45,11 +59,28 @@ def get_mysql_info():
 tables.sort(key=lambda info: info.table_rows,reverse=True)
 #sorted(tables,key=tables.
 
+##
+def write_to_excel( sheet_name ):
+	wb = xlwt.Workbook()
+	ws = wb.add_sheet( sheet_name )	
+	j = 1
+	for i in  tables:
+		#ws.write( j, 1, i['table_name'] )
+		#ws.write( j, 2, i['engine'] )
+		#ws.write( j, 3, i['table_rows'] )
+		ws.write( j, 1, i.get_table_name() )
+		ws.write( j, 2, i.get_engine() )
+		ws.write( j, 3, i.get_table_rows() )
+		j = j+1
+	wb.save('sheet_name.xls')
+
+##end write_to_excel
 def main():
 	get_mysql_info()
-	for i in tables:
-	#	print i['table_name'],i['engine'],i['table_rows']
-		i.say()
+	write_to_excel( 'shengchan')
+#	for i in tables:
+#	#	print i['table_name'],i['engine'],i['table_rows']
+#		i.say()
 
 
 main()
