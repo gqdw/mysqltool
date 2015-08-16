@@ -13,7 +13,7 @@ class info:
 	def say(self):
 		print self.table_name,self.engine,self.table_rows
 
-def connect_mysql():
+def get_mysql_info():
 	db1 = MySQLdb.connect('localhost',dbuser,dbpass,dbname,unix_socket='/tmp/mysql.sock')
 	#sql = 'show processlist'
 	sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from TABLES where TABLE_SCHEMA='shengchan' "
@@ -46,7 +46,7 @@ tables.sort(key=lambda info: info.table_rows,reverse=True)
 #sorted(tables,key=tables.
 
 def main():
-	connect_mysql()
+	get_mysql_info()
 	for i in tables:
 	#	print i['table_name'],i['engine'],i['table_rows']
 		i.say()
