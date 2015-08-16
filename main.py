@@ -72,7 +72,7 @@ def write_to_excel( sheet_name ):
 		ws.write( j, 2, i.get_engine() )
 		ws.write( j, 3, i.get_table_rows() )
 		j = j+1
-	wb.save('sheet_name.xls')
+	wb.save(sheet_name +'.xls')
 
 ##end write_to_excel
 def main():
