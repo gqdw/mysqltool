@@ -34,7 +34,7 @@ class info:
 def get_mysql_info():
 	db1 = MySQLdb.connect(dbhost,dbuser,dbpass,dbname,unix_socket='/tmp/mysql.sock')
 	#sql = 'show processlist'
-	sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from TABLES where TABLE_SCHEMA=%s " % schema
+	sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from information_schema.TABLES where TABLE_SCHEMA='%s' " % schema
 	cur = db1.cursor()
 
 	cur.execute(sql)
