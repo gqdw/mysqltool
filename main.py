@@ -4,6 +4,7 @@ import xlwt
 dbuser = 'root'
 dbpass = ''
 dbname = 'information_schema'
+dbhost = 'localhost'
 tables= []
 class info:
 	#table_name = ''
@@ -28,7 +29,7 @@ class info:
 	#	return 
 
 def get_mysql_info():
-	db1 = MySQLdb.connect('localhost',dbuser,dbpass,dbname,unix_socket='/tmp/mysql.sock')
+	db1 = MySQLdb.connect(dbhost,dbuser,dbpass,dbname,unix_socket='/tmp/mysql.sock')
 	#sql = 'show processlist'
 	sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from TABLES where TABLE_SCHEMA='shengchan' "
 	cur = db1.cursor()
