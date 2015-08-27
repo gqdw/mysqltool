@@ -1,11 +1,14 @@
 import MySQLdb
 import xlwt
 
+#golbal variables:
+
 dbuser = 'root'
 dbpass = ''
 dbname = 'information_schema'
 dbhost = 'localhost'
 tables= []
+schema = 'shengchan'
 class info:
 	#table_name = ''
 	#engine = ''
@@ -31,7 +34,7 @@ class info:
 def get_mysql_info():
 	db1 = MySQLdb.connect(dbhost,dbuser,dbpass,dbname,unix_socket='/tmp/mysql.sock')
 	#sql = 'show processlist'
-	sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from TABLES where TABLE_SCHEMA='shengchan' "
+	sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from TABLES where TABLE_SCHEMA=%s " % schema
 	cur = db1.cursor()
 
 	cur.execute(sql)
@@ -79,7 +82,7 @@ def write_to_excel( sheet_name ):
 ##end write_to_excel
 def main():
 	get_mysql_info()
-	write_to_excel( 'shengchan')
+	write_to_excel( schema )
 #	for i in tables:
 #	#	print i['table_name'],i['engine'],i['table_rows']
 #		i.say()
