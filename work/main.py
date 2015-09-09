@@ -16,32 +16,31 @@ class MysqlInfo:
 		self.dbhost = dbhost
 		self.infos = []
 		
+	##
+	##get info to store in infos
+	##
 	def get_mysql_info(self):
 		dbname = 'information_schema'
-	    db1 = MySQLdb.connect(self.dbhost,self.dbuser,self.dbpass,dbname,unix_socket='/tmp/mysql.sock')
+		db1 = MySQLdb.connect(self.dbhost,self.dbuser,self.dbpass,dbname,unix_socket='/tmp/mysql.sock')
 	    #sql = 'show processlist'
-	    sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from information_schema.TABLES where TABLE_SCHEMA='%s' " % schema
-	    cur = db1.cursor()
-	    cur.execute(sql)
-	    ret = cur.fetchone()
-	    t1 = info(ret[0],ret[1],ret[2])
-	   # tables.append(t1)
-	    self.infos.append(t1)
-	    #print ret
-	    while True:
-	    #while ret !=  None :
-	        ret = cur.fetchone()
-	        if ( ret != None):
+		sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from information_schema.TABLES where TABLE_SCHEMA='information_schema' " 
+		#sql = "select  TABLE_NAME,ENGINE,TABLE_ROWS from information_schema.TABLES where TABLE_SCHEMA='%s' " % dbname
+		cur = db1.cursor()
+		cur.execute(sql)
+		ret = cur.fetchone()
+		t1 = info(ret[0],ret[1],ret[2])
+		self.infos.append(t1)
+		while True:
+			ret = cur.fetchone()
+	        if  ret != None :
 	            #print "table_name: %s\t engine: %s\t table_rows: %s" % (ret[0],ret[1],ret[2])
 	            r3 = int(ret[2])
 	            i1 = info(ret[0],ret[1],ret[2])
 	            self.infos.append(i1)
-	    #       tables.append({'table_name':ret[0],'engine':ret[1],'table_rows':r3})
-	            #tables.append({'table_name':ret[0],'engine':ret[1],'table_rows':int(ret[2])})
-	        else:
-	            break
-	    cur.close()
-	    db1.close()
+			else:
+				break
+		cur.close()
+		db1.close()
 	def write_to_excel( self , sheet_name ):
 		wb = xlwt.Workbook()
 		ws = wb.add_sheet( sheet_name )	
@@ -63,19 +62,12 @@ class MysqlInfo:
 #tables.sort(key=lambda info: info.table_rows,reverse=True)
 #sorted(tables,key=tables.
 
-##end write_to_excel
-#def main():
-#	get_mysql_info()
-#	write_to_excel( schema )
-#	for i in tables:
-#	#	print i['table_name'],i['engine'],i['table_rows']
-#		i.say()
-
 
 if __name__ == '__main__':
-	dbuser = 
-	dbpass = 
-	dbhost =
+	dbuser = 'root' 
+	dbpass = ''
+	dbhost = '127.0.0.1' 
 	new1 = MysqlInfo(dbuser,dbpass,dbhost)
-	
+	new1.get_mysql_info()
+	new1.write_to_excel('test')
 
