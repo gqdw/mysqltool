@@ -32,15 +32,16 @@ class MysqlInfo:
 		self.infos.append(t1)
 		while True:
 			ret = cur.fetchone()
-	        if  ret != None :
-	            #print "table_name: %s\t engine: %s\t table_rows: %s" % (ret[0],ret[1],ret[2])
-	            r3 = int(ret[2])
-	            i1 = info(ret[0],ret[1],ret[2])
-	            self.infos.append(i1)
+			if ret != None:
+				#print "table_name: %s\t engine: %s\t table_rows: %s" % (ret[0],ret[1],ret[2])
+				r3 = int(ret[2])
+				i1 = info(ret[0],ret[1],r3)
+				self.infos.append(i1)
 			else:
 				break
 		cur.close()
 		db1.close()
+
 	def write_to_excel( self , sheet_name ):
 		wb = xlwt.Workbook()
 		ws = wb.add_sheet( sheet_name )	
