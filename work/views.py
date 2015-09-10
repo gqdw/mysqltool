@@ -15,12 +15,16 @@ def index( request):
 		form = MysqlForm(request.POST)
 		if form.is_valid():
 			cd = form.cleaned_data
-			print cd['host'], cd['user'] ,cd['password']
+			print cd['host'], cd['user'] ,cd['password'],cd['dbname']
 			n1 = MysqlInfo( cd['user'],cd['password'] ,cd['host'],cd['dbname'])
 			n1.get_mysql_info()
 			n1.write_to_excel()
-			return HttpResponse('ok')
+#			return HttpResponse('ok')
+			return render(request,'list.html',{'infos':n1.infos})
 
 	else:
 		form = MysqlForm()
 	return render(request,'index.html',{ 'form':form })
+
+#def test( request ):
+	

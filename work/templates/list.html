@@ -1,0 +1,14 @@
+<html>
+
+<h1>table infos</h1>
+<table border="1">
+{% for info in infos%}
+	<tr>
+		<th>{{ info.table_name }} </th>
+		<th>{{ info.engine }} </th>
+		<th>{{ info.table_rows }} </th>
+	</tr>
+{% endfor %}
+</table>
+
+</html>
