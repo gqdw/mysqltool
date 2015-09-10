@@ -4,6 +4,16 @@
 </head>
 <body>
     <h1>input mysql info </h1>
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
 
     {% if form.errors %}
         <p style="color: red;">
@@ -13,12 +23,15 @@
 	<h3> 创建一个远程查询用户grant select *.* to test@'%' identified by 'test123' </h3>
 	<h3> 有防火墙的话需要开放端口. </h3>
 
+	<div style="width:200px">
     <form action="" method="post">
         <table>
 			{% csrf_token %}
-            {{ form.as_table }}
+<!--           {{ form.as_table }} -->
+			{% bootstrap_form form %}
         </table>
         <input type="submit" value="Submit">
     </form>
+	</div>
 </body>
 </html>
